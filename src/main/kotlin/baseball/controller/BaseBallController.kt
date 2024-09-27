@@ -11,7 +11,11 @@ class BaseBallController {
 
     fun playGame() {
         inputView.printPlayGame()
+
         val magicNumber = magicNumberGenerator.magicNumberGenerate()
+
+        inputView.printInputUserNum()
+        val userInput = Console.readLine()
     }
 
 }
