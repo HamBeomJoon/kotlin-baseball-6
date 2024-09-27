@@ -4,7 +4,6 @@ import baseball.model.MagicNumberGenerator
 import baseball.view.InputView
 import baseball.view.OutputView
 import camp.nextstep.edu.missionutils.Console
-import org.junit.jupiter.api.assertThrows
 
 class BaseBallController {
     private val inputView = InputView()
@@ -35,6 +34,10 @@ class BaseBallController {
 
         val (ball, strike) = checkStrikeBall(userInput, magicNumber)
         outputView.printOutputUserNum(ball, strike)
+
+        if (strike == 3) {
+            gameOver()
+        }
     }
 
     private fun checkStrikeBall(userInput: String, magicNumber: MutableList<Int>): Pair<Int, Int> {
@@ -49,5 +52,11 @@ class BaseBallController {
             }
         }
         return Pair(ball, strike)
+    }
+
+    private fun gameOver() {
+        outputView.printGameOver()
+        inputView.printInputRestartNum()
+        userInput = Console.readLine()
     }
 }
