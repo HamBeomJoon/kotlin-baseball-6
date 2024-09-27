@@ -11,6 +11,9 @@ class BaseBallController {
     private val outputView = OutputView()
     private val magicNumberGenerator = MagicNumberGenerator()
 
+    private var strike = 0
+    private var ball = 0
+
     fun playGame() {
         inputView.printPlayGame()
 
@@ -29,6 +32,22 @@ class BaseBallController {
                 throw IllegalArgumentException("1 ~ 9 사이의 숫자만 입력해야 합니다.")
             }
         }
+
+        val (ball, strike) = checkStrikeBall(userInput, magicNumber)
+        outputView.printOutputUserNum(ball, strike)
     }
 
+    private fun checkStrikeBall(userInput: String, magicNumber: MutableList<Int>): Pair<Int, Int> {
+        for (i in 0 until 3) {
+            val userNum = userInput[i].digitToInt()
+            if (magicNumber.contains(userNum)) {
+                if (magicNumber[i] == userNum) {
+                    strike++
+                } else {
+                    ball++
+                }
+            }
+        }
+        return Pair(ball, strike)
+    }
 }
