@@ -19,7 +19,7 @@ class BaseBallController {
         val magicNumber = magicNumberGenerator.magicNumberGenerate()
 
         inputView.printInputUserNum()
-        val userInput = Console.readLine()
+        var userInput = Console.readLine()
         if (userInput.isEmpty() || userInput.length > 3) {
             throw IllegalArgumentException("3자리 수를 입력해야 합니다.")
         }
@@ -37,6 +37,8 @@ class BaseBallController {
 
         if (strike == 3) {
             gameOver()
+
+            userInput = Console.readLine()
         }
     }
 
