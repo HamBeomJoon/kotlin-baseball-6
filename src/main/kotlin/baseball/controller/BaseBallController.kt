@@ -39,6 +39,14 @@ class BaseBallController {
             gameOver()
 
             userInput = Console.readLine()
+            if (userInput.isEmpty() || userInput.length > 1) {
+                throw IllegalArgumentException("1과 2중 하나만 입력해야 합니다.")
+            }
+            if (userInput[0] != '1' || userInput[0] != '2') {
+                throw IllegalArgumentException("1과 2중 하나만 입력해야 합니다.")
+            }
+
+            playGame()
         }
     }
 
