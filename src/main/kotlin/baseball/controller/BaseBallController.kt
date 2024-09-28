@@ -14,6 +14,7 @@ class BaseBallController {
     private var ball = 0
 
     fun playGame() {
+        initBallStrike()
         inputView.printPlayGame()
 
         val magicNumber = magicNumberGenerator.magicNumberGenerate()
@@ -67,6 +68,10 @@ class BaseBallController {
     private fun gameOver() {
         outputView.printGameOver()
         inputView.printInputRestartNum()
-        userInput = Console.readLine()
+    }
+
+    private fun initBallStrike() {
+        ball = 0
+        strike = 0
     }
 }
