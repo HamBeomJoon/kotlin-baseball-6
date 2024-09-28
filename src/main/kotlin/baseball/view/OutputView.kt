@@ -4,8 +4,10 @@ class OutputView {
     fun printGameOver() = println(GAME_OVER_MESSAGE)
     fun printOutputUserNum(ball: Int, strike: Int) =
         if (ball == 0 && strike == 0) println(NOTHING_MESSAGE)
-        else {
-            println("${ball}$BALL_MESSAGE ${strike}$STRIKE_MESSAGE")
+        else if (ball == 0) {
+            println("${strike}$STRIKE_MESSAGE")
+        } else {
+            println("${ball}$BALL_MESSAGE")
         }
 
     companion object {
