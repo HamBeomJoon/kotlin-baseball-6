@@ -14,30 +14,33 @@ class BaseBallController {
     private var ball = 0
 
     fun playGame() {
-        initBallStrike()
         inputView.printPlayGame()
+        initBallStrike()
 
         val magicNumber = magicNumberGenerator.magicNumberGenerate()
 
-        inputView.printInputUserNum()
-        var userInput = Console.readLine()
-        if (userInput.isEmpty() || userInput.length > 3) {
-            throw IllegalArgumentException("3자리 수를 입력해야 합니다.")
-        }
-        if (userInput[0] == userInput[1] || userInput[0] == userInput[2] || userInput[1] == userInput[2]) {
-            throw IllegalArgumentException("서로 다른 3자리 수를 입력해야 합니다.")
-        }
-        for (num in userInput) {
-            if (num < '1' || num > '9') {
-                throw IllegalArgumentException("1 ~ 9 사이의 숫자만 입력해야 합니다.")
+        while (strike < 3) {
+            initBallStrike()
+
+            inputView.printInputUserNum()
+            var userInput = Console.readLine()
+            if (userInput.isEmpty() || userInput.length > 3) {
+                throw IllegalArgumentException("3자리 수를 입력해야 합니다.")
             }
-        }
+            if (userInput[0] == userInput[1] || userInput[0] == userInput[2] || userInput[1] == userInput[2]) {
+                throw IllegalArgumentException("서로 다른 3자리 수를 입력해야 합니다.")
+            }
+            for (num in userInput) {
+                if (num < '1' || num > '9') {
+                    throw IllegalArgumentException("1 ~ 9 사이의 숫자만 입력해야 합니다.")
+                }
+            }
 
-        val (ball, strike) = checkStrikeBall(userInput, magicNumber)
-        outputView.printOutputUserNum(ball, strike)
+            val (ball, strike) = checkStrikeBall(userInput, magicNumber)
+            outputView.printOutputUserNum(ball, strike)
 
-        if (strike == 3) {
-            gameOver()
+            if (strike == 3) {
+                gameOver()
 
             userInput = Console.readLine()
             if (userInput.isEmpty() || userInput.length > 1) {
@@ -48,6 +51,7 @@ class BaseBallController {
             }
 
             playGame()
+            }
         }
     }
 
