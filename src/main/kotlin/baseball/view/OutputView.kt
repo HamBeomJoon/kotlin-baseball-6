@@ -6,8 +6,10 @@ class OutputView {
         if (ball == 0 && strike == 0) println(NOTHING_MESSAGE)
         else if (ball == 0) {
             println("${strike}$STRIKE_MESSAGE")
-        } else {
+        } else if (strike == 0){
             println("${ball}$BALL_MESSAGE")
+        } else {
+            println("${ball}$BALL_MESSAGE ${strike}$STRIKE_MESSAGE")
         }
 
     companion object {
