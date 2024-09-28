@@ -50,7 +50,11 @@ class BaseBallController {
                 throw IllegalArgumentException("1과 2중 하나만 입력해야 합니다.")
             }
 
-            playGame()
+                if (userInput[0] == '1') {
+                    playGame()
+                } else {
+                    return
+                }
             }
         }
     }
