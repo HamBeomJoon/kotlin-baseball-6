@@ -24,21 +24,13 @@ class BaseBallController {
 
             inputView.printInputUserNum()
             var userInput = Console.readLine()
-            validationCheck(userInput)
+            userInputValidationCheck(userInput)
 
             val (ball, strike) = checkStrikeBall(userInput, magicNumber)
             outputView.printOutputUserNum(ball, strike)
 
-            if (strike == 3) {
+            if (strike == USER_NUMBER_COUNT) {
                 gameOver()
-
-                userInput = Console.readLine()
-                if (userInput.isEmpty() || userInput.length > 1) {
-                    throw IllegalArgumentException("1과 2중 하나만 입력해야 합니다.")
-                }
-                if (userInput[0] != '1' && userInput[0] != '2') {
-                    throw IllegalArgumentException("1과 2중 하나만 입력해야 합니다.")
-                }
 
                 if (userInput[0] == '1') {
                     playGame()
@@ -50,7 +42,7 @@ class BaseBallController {
     }
 
     private fun checkStrikeBall(userInput: String, magicNumber: MutableList<Int>): Pair<Int, Int> {
-        for (i in 0 until 3) {
+        for (i in 0 until USER_NUMBER_COUNT) {
             val userNum = userInput[i].digitToInt()
             if (magicNumber.contains(userNum)) {
                 if (magicNumber[i] == userNum) {
@@ -73,7 +65,7 @@ class BaseBallController {
         strike = 0
     }
 
-    private fun validationCheck(userInput: String) {
+    private fun userInputValidationCheck(userInput: String) {
         val isNumbers = userInput.all { it.toString().matches(ONE_TO_NINE_REGEX.toRegex()) }
         val isThreeNumber = userInput.length == USER_NUMBER_COUNT
         val isDuplicate = userInput[0] != userInput[1] && userInput[0] != userInput[2] && userInput[1] != userInput[2]
@@ -81,8 +73,16 @@ class BaseBallController {
         require(isNumbers && isThreeNumber && isDuplicate) { println() }
     }
 
+    private fun retryValidationCheck(userInput: String) {
+        val isOneOrTwo = userInput.matches(ONE_TO_TWO_REGEX.toRegex())
+        val isOneNumber = userInput.length == 1
+
+        require(isOneOrTwo && isOneNumber) { println() }
+    }
+
     companion object {
         const val ONE_TO_NINE_REGEX = "[1-9]"
         const val USER_NUMBER_COUNT = 3
+        const val ONE_TO_TWO_REGEX = "[1-2]"
     }
 }
