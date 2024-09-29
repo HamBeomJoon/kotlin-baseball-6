@@ -24,17 +24,7 @@ class BaseBallController {
 
             inputView.printInputUserNum()
             var userInput = Console.readLine()
-            if (userInput.isEmpty() || userInput.length > 3) {
-                throw IllegalArgumentException("3자리 수를 입력해야 합니다.")
-            }
-            if (userInput[0] == userInput[1] || userInput[0] == userInput[2] || userInput[1] == userInput[2]) {
-                throw IllegalArgumentException("서로 다른 3자리 수를 입력해야 합니다.")
-            }
-            for (num in userInput) {
-                if (num < '1' || num > '9') {
-                    throw IllegalArgumentException("1 ~ 9 사이의 숫자만 입력해야 합니다.")
-                }
-            }
+            validationCheck(userInput)
 
             val (ball, strike) = checkStrikeBall(userInput, magicNumber)
             outputView.printOutputUserNum(ball, strike)
@@ -81,5 +71,9 @@ class BaseBallController {
     private fun initBallStrike() {
         ball = 0
         strike = 0
+    }
+
+    private fun validationCheck(userInput: String) {
+
     }
 }
