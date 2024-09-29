@@ -23,30 +23,18 @@ class BaseBallController {
             initBallStrike()
 
             inputView.printInputUserNum()
-            var userInput = Console.readLine()
+            val userInput = Console.readLine()
             userInputValidationCheck(userInput)
 
-            val (ball, strike) = checkStrikeBall(userInput, magicNumber)
+            val userInputList = userInput.map { it.digitToInt() }.toMutableList()
+            val ball = getBallResult(userInputList, magicNumber)
+            val strike = getStrikeResult(userInputList, magicNumber)
             outputView.printOutputUserNum(ball, strike)
 
             if (strike == USER_NUMBER_COUNT) {
                 gameOver()
             }
         }
-    }
-
-    private fun checkStrikeBall(userInput: String, magicNumber: MutableList<Int>): Pair<Int, Int> {
-        for (i in 0 until USER_NUMBER_COUNT) {
-            val userNum = userInput[i].digitToInt()
-            if (magicNumber.contains(userNum)) {
-                if (magicNumber[i] == userNum) {
-                    strike++
-                } else {
-                    ball++
-                }
-            }
-        }
-        return Pair(ball, strike)
     }
 
     private fun gameOver() {
@@ -66,6 +54,26 @@ class BaseBallController {
     private fun initBallStrike() {
         ball = 0
         strike = 0
+    }
+
+    private fun getBallResult(userInput: MutableList<Int>, magicNumber: MutableList<Int>): Int {
+        var ballCount = 0
+        magicNumber.forEachIndexed { idx, num ->
+            if (userInput[idx] != num && userInput.toMutableList().contains(num)) {
+                ballCount++
+            }
+        }
+        return ballCount
+    }
+
+    private fun getStrikeResult(userInput: MutableList<Int>, magicNumber: MutableList<Int>): Int {
+        var strikeCount = 0
+        magicNumber.forEachIndexed { idx, num ->
+            if (userInput[idx] == num) {
+                strikeCount++
+            }
+        }
+        return strikeCount
     }
 
     private fun userInputValidationCheck(userInput: String) {
