@@ -75,5 +75,8 @@ class BaseBallController {
 
     private fun validationCheck(userInput: String) {
 
+    companion object {
+        const val ONE_TO_NINE_REGEX = "[1-9]"
+        const val USER_NUMBER_COUNT = 3
     }
 }
