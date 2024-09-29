@@ -33,6 +33,7 @@ class BaseBallController {
 
             if (strike == USER_NUMBER_COUNT) {
                 gameOver()
+                return
             }
         }
     }
@@ -46,8 +47,6 @@ class BaseBallController {
 
         if (userInput == "1") {
             playGame()
-        } else {
-            return
         }
     }
 
