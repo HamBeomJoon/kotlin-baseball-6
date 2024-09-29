@@ -31,12 +31,6 @@ class BaseBallController {
 
             if (strike == USER_NUMBER_COUNT) {
                 gameOver()
-
-                if (userInput[0] == '1') {
-                    playGame()
-                } else {
-                    return
-                }
             }
         }
     }
@@ -58,6 +52,15 @@ class BaseBallController {
     private fun gameOver() {
         outputView.printGameOver()
         inputView.printInputRestartNum()
+
+        val userInput = Console.readLine()
+        retryValidationCheck(userInput)
+
+        if (userInput == "1") {
+            playGame()
+        } else {
+            return
+        }
     }
 
     private fun initBallStrike() {
