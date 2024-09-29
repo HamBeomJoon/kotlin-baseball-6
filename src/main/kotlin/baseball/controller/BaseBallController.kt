@@ -74,6 +74,12 @@ class BaseBallController {
     }
 
     private fun validationCheck(userInput: String) {
+        val isNumbers = userInput.all { it.toString().matches(ONE_TO_NINE_REGEX.toRegex()) }
+        val isThreeNumber = userInput.length == USER_NUMBER_COUNT
+        val isDuplicate = userInput[0] != userInput[1] && userInput[0] != userInput[2] && userInput[1] != userInput[2]
+
+        require(isNumbers && isThreeNumber && isDuplicate) { println() }
+    }
 
     companion object {
         const val ONE_TO_NINE_REGEX = "[1-9]"
